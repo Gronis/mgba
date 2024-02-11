@@ -128,6 +128,21 @@ int main(int argc, char* argv[]) {
 
 	w->show();
 
+	Window* multiplayer_ws[3];
+
+	mArguments *args = (mArguments *)configController.args();
+	auto fname = args->fnames[0];
+	for (int i = 0; i < 3 && fname; ++i) {
+		auto fname = args->fnames[i + 1];
+		if (fname) {
+			args->fname = fname;
+			Window* w2 = multiplayer_ws[i] = application.newWindow();
+			w2->loadConfig();
+			w2->argumentsPassed();
+			w2->show();
+		}
+	}
+
 	int ret = application.exec();
 	if (ret != 0) {
 		return ret;

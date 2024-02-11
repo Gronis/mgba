@@ -16,6 +16,7 @@ CXX_GUARD_START
 
 struct mArguments {
 	char* fname;
+	char* fnames[4];
 	char* patch;
 	char* cheatsFile;
 	char* savestate;

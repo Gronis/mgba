@@ -186,12 +186,13 @@ bool mArgumentsParse(struct mArguments* args, int argc, char* const* argv, struc
 	}
 	argc -= optind;
 	argv += optind;
-	if (argc > 1) {
+	if (argc > 4) {
 		return false;
-	} else if (argc == 1) {
-		args->fname = strdup(argv[0]);
 	} else {
-		args->fname = NULL;
+		for(i = 0; i < 4; ++i){
+			args->fnames[i] = i < argc? strdup(argv[i]) : NULL;
+		}
+		args->fname = args->fnames[0];
 	}
 	return true;
 }
@@ -269,8 +270,14 @@ void mArgumentsApplyFileLoads(const struct mArguments* args, struct mCore* core)
 }
 
 void mArgumentsDeinit(struct mArguments* args) {
-	free(args->fname);
-	args->fname = 0;
+	for(char i = 0; i < 4; ++i){
+		if (args->fnames[i] != NULL){
+			free(args->fnames[i]);
+			args->fnames[i] = 0;
+		}
+	}
+	// free(args->fname);
+	// args->fname = 0;
 
 	free(args->patch);
 	args->patch = 0;
