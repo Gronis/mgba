@@ -168,6 +168,9 @@ If you are on macOS, the steps are a little different. Assuming you are using th
 	cmake -DCMAKE_PREFIX_PATH=`brew --prefix qt5` ..
 	make
 
+MacOs installs qt6 by default, so if you get weird errors, try to unlink qt:
+	brew unlink qt
+
 Note that you should not do a `make install` on macOS, as it will not work properly.
 
 #### Windows developer building
